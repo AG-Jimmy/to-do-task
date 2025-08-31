@@ -8,16 +8,7 @@ const KanbanColumn = ({
   onEdit,
   onDelete,
   searchTerm,
-}: {
-  column: {
-    id: string;
-    title: string;
-  };
-  tasks: Task[];
-  onEdit: (id: number, updates: Partial<Task>) => void;
-  onDelete: (id: number) => void;
-  searchTerm: string;
-}) => {
+}: KanbanColumnProps) => {
   return (
     <div style={{ minHeight: "500px" }}>
       <div className="d-flex align-items-center p-3 gap-2">
