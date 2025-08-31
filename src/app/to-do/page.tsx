@@ -7,17 +7,12 @@ import {
   fetchReviewTasks,
 } from "./api/toDoApi";
 import { KanbanColumn, SearchBar } from "./components";
+import Loading from "@/components/Loading";
+import Error from "@/components/Error";
 
 type Q<T> = UseQueryResult<T[], unknown>;
 
 const HomePage = () => {
-  const columns = [
-    { id: "backlog", title: "Backlog" },
-    { id: "in-progress", title: "In Progress" },
-    { id: "review", title: "Review" },
-    { id: "done", title: "Done" },
-  ];
-
   const [doneQ, backlogQ, inProgressQ, reviewQ] = useQueries({
     queries: [
       {
@@ -49,7 +44,7 @@ const HomePage = () => {
     inProgressQ.isLoading ||
     reviewQ.isLoading
   )
-    return <p>Loading…</p>;
+    return <Loading />;
 
   if (
     doneQ.isError ||
@@ -57,7 +52,7 @@ const HomePage = () => {
     inProgressQ.isError ||
     reviewQ.isError
   )
-    return <p>Error loading data</p>;
+    return <Error />;
 
   const dataByColumn: Record<string, Task[]> = {
     backlog: backlogQ.data ?? [],
@@ -106,3 +101,9 @@ const HomePage = () => {
   );
 };
 export default HomePage;
+const columns = [
+  { id: "backlog", title: "Backlog" },
+  { id: "in-progress", title: "In Progress" },
+  { id: "review", title: "Review" },
+  { id: "done", title: "Done" },
+];
