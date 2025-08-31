@@ -19,7 +19,6 @@ const HomePage = () => {
           </button>
         </div>
       </div>
-      
       {/* Kanban Board */}
       <div
         className="row g-3 mb-4  d-flex flex-nowrap overflow-x-auto"
