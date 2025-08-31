@@ -53,3 +53,8 @@ export const fetchDoneTasks = async ({
   });
   return data;
 };
+
+export const deleteTask = async (id: number) => {
+  const { data } = await api.delete(`/tasks/${id}`);
+  return data;
+};
