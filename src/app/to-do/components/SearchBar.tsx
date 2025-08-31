@@ -10,7 +10,7 @@ const SearchBar = ({
   setSearchTerm: (value: string) => void;
 }) => {
   return (
-    <div className="mb-4">
+    <div className=" w-50">
       <div className="position-relative">
         {/* Icon inside the input */}
         <span
