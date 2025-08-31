@@ -9,12 +9,12 @@ interface TaskCardProps {
   onEdit: (id: number, updates: Partial<Task>) => void;
   onDelete: (id: number) => void;
 }
-
+interface ColumnProps {
+  id: string;
+  title: string;
+}
 interface KanbanColumnProps {
-  column: {
-    id: string;
-    title: string;
-  };
+  column: ColumnProps;
   tasks: Task[];
   onEdit: (id: number, updates: Partial<Task>) => void;
   onDelete: (id: number) => void;
