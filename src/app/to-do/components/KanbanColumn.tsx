@@ -18,12 +18,9 @@ const KanbanColumn = ({
         className="card-body p-4 "
         style={{ maxHeight: "400px", overflowY: "auto" }}
       >
-        <TaskCard
-          task={{ title: "test", description: "test", column: "done", id: 1 }}
-          onEdit={onEdit}
-          onDelete={onDelete}
-        />
-
+        {tasks.map((t) => (
+          <TaskCard key={t.id} task={t} onEdit={onEdit} onDelete={onDelete} />
+        ))}
         {tasks.length === 0 && (
           <p className="mb-0 text-center text-muted pt-5 ">
             {searchTerm ? "No matching tasks" : "No tasks yet"}
