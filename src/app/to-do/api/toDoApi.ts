@@ -54,7 +54,17 @@ export const fetchDoneTasks = async ({
   return data;
 };
 
-export const deleteTask = async (id: number) => {
+export const deleteTask = async (id: string) => {
   const { data } = await api.delete(`/tasks/${id}`);
   return data;
 };
+
+// export const updateTask = async (id: number, updates: Partial<Task>) => {
+//   const { data } = await api.put(`/tasks/${id}`, updates);
+//   return data;
+// };
+
+// export const createTask = async (task: Partial<Task>) => {
+//   const { data } = await api.post("/tasks", task);
+//   return data;
+// };
