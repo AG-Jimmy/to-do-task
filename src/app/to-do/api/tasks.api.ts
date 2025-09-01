@@ -14,8 +14,8 @@ export const deleteTask = async (id: string) => {
   const { data } = await api.delete(`/tasks/${id}`);
   return data;
 };
-export const createTask = async (task: ITask): Promise<ITask> => {
-  const { data } = await api.put(`/tasks`, task);
+export const createTask = async (task: Omit<ITask, "id">): Promise<ITask> => {
+  const { data } = await api.post(`/tasks`, task);
   return data;
 };
 

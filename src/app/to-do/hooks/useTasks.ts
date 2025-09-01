@@ -40,7 +40,7 @@ export const useAddTask = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (task: ITask) => {
+    mutationFn: async (task: Omit<ITask , "id">) => {
       await createTask(task);
     },
     onSuccess: () => {

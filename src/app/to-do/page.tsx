@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 import { KanbanColumn, SearchBar } from "./components";
-import { useTasks } from "./hooks/useTasks";
+import { useAddTask, useTasks } from "./hooks/useTasks";
+import TaskFormModal from "./components/TaskFormModal";
 
 const columns = [
   { id: "backlog", title: "Backlog" },
@@ -12,15 +13,37 @@ const columns = [
 
 export default function HomePage() {
   const [keyword, setKeyword] = useState("");
+  const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [status, setStatus] = useState("");
   const limit = 5;
   const { data: allTasks = [], isLoading, isError } = useTasks();
+  const createTaskMutation = useAddTask();
 
+  const handleCreateTask = () => {
+    createTaskMutation.mutate({
+      title,
+      description,
+      column: status,
+    });
+    if (createTaskMutation.isSuccess) {
+      setTitle("");
+      setDescription("");
+      setStatus("");
+      setOpen(false);
+    }
+  };
   return (
     <div className="bg-white p-4 d-flex flex-column gap-3 rounded-3">
       <div className="row justify-content-between gap-3 align-items-center border-bottom pb-3">
         <SearchBar searchTerm={keyword} setSearchTerm={setKeyword} />
         <div className="col-5 col-md-2 col-lg-1">
-          <button type="button" className="btn btn-primary text-nowrap">
+          <button
+            onClick={() => setOpen(true)}
+            type="button"
+            className="btn btn-primary text-nowrap"
+          >
             Add Task
           </button>
         </div>
@@ -52,6 +75,17 @@ export default function HomePage() {
           </div>
         ))}
       </div>
+      <TaskFormModal
+        isOpen={open}
+        title={title}
+        description={description}
+        status={status}
+        setIsOpen={setOpen}
+        handleSave={handleCreateTask}
+        setTitle={setTitle}
+        setDescription={setDescription}
+        setStatus={setStatus}
+      />
     </div>
   );
 }
