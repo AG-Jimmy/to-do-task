@@ -1,20 +1,29 @@
 "use client";
 import { Edit, GripVertical, Trash2 } from "lucide-react";
 import { useState } from "react";
-import EditModal from "./EditModal";
+import EditModal from "./TaskFormModal";
 import ConfirmModal from "./ConfirmModal";
 import { ITaskCardProps } from "@/types";
-import { useDeleteTask } from "../hooks/useTasks";
+import { useDeleteTask, useUpdateTask } from "../hooks/useTasks";
 
 const TaskCard: React.FC<ITaskCardProps> = ({ task }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editTitle, setEditTitle] = useState(task.title);
-  const [editDescription, setEditDescription] = useState(task.description);
   const [isOpen, setIsOpen] = useState(false);
 
+  const [title, setTitle] = useState(task?.title || "");
+  const [description, setDescription] = useState(task?.description || "");
+  const [status, setStatus] = useState(task?.column || "");
+
   const deleteTaskMutation = useDeleteTask();
+  const updateTaskMutation = useUpdateTask();
 
   const handleSave = () => {
+    updateTaskMutation.mutate({
+      ...task,
+      title,
+      description,
+      column: status,
+    });
     setIsEditing(false);
   };
   const handleDeleteTask = async () => {
@@ -42,13 +51,15 @@ const TaskCard: React.FC<ITaskCardProps> = ({ task }) => {
 
       {/* Modal for edit */}
       <EditModal
-        isEditing={isEditing}
-        setIsEditing={setIsEditing}
-        editTitle={editTitle}
-        setEditTitle={setEditTitle}
-        editDescription={editDescription}
-        setEditDescription={setEditDescription}
+        isOpen={isEditing}
+        setIsOpen={setIsEditing}
         handleSave={handleSave}
+        setTitle={setTitle}
+        setDescription={setDescription}
+        setStatus={setStatus}
+        title={title}
+        description={description}
+        status={status}
       />
       {/* Modal for confirm delete */}
       <ConfirmModal

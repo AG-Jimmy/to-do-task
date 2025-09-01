@@ -1,25 +1,28 @@
 import Modal from "@/components/modals/Modal";
-import React from "react";
+import { ITaskFormModal } from "@/types";
+import React, { useState } from "react";
 
-const EditModal = ({
-  isEditing,
-  setIsEditing,
-  editTitle,
-  setEditTitle,
-  editDescription,
-  setEditDescription,
+const TaskFormModal = ({
+  isOpen,
+  title,
+  description,
+  status,
+  setIsOpen,
   handleSave,
-}: any) => {
+  setTitle,
+  setDescription,
+  setStatus,
+}: ITaskFormModal) => {
   return (
     <Modal
-      show={isEditing}
+      show={isOpen}
       title="Edit Task"
-      onClose={() => setIsEditing(false)}
+      onClose={() => setIsOpen(false)}
       footer={
         <>
           <button
             className="btn btn-secondary"
-            onClick={() => setIsEditing(false)}
+            onClick={() => setIsOpen(false)}
           >
             Cancel
           </button>
@@ -33,8 +36,8 @@ const EditModal = ({
         <label className="form-label">Title</label>
         <input
           className="form-control"
-          value={editTitle}
-          onChange={(e) => setEditTitle(e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
       </div>
       <div className="mb-3">
@@ -42,13 +45,18 @@ const EditModal = ({
         <textarea
           className="form-control"
           rows={3}
-          value={editDescription}
-          onChange={(e) => setEditDescription(e.target.value)}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
       </div>
       <div className="mb-3">
         <label className="form-label">Status</label>
-        <select className="form-select">
+        <select
+          className="form-select"
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+        >
+          <option value="">Select Status</option>
           <option value="backlog">Backlog</option>
           <option value="in-progress">In Progress</option>
           <option value="review">Review</option>
@@ -59,4 +67,4 @@ const EditModal = ({
   );
 };
 
-export default EditModal;
+export default TaskFormModal;

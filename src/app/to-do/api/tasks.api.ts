@@ -1,3 +1,4 @@
+import { ITask } from "@/types";
 import axios from "axios";
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:4000";
@@ -11,6 +12,15 @@ export const getTasks = async () => {
 
 export const deleteTask = async (id: string) => {
   const { data } = await api.delete(`/tasks/${id}`);
+  return data;
+};
+export const createTask = async (task: ITask): Promise<ITask> => {
+  const { data } = await api.put(`/tasks`, task);
+  return data;
+};
+
+export const updateTask = async (task: ITask): Promise<ITask> => {
+  const { data } = await api.patch(`/tasks/${task.id}`, task);
   return data;
 };
 
