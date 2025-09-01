@@ -1,7 +1,7 @@
 "use client";
 import { Edit, GripVertical, Trash2 } from "lucide-react";
 import { useState } from "react";
-import EditModal from "./TaskFormModal";
+import TaskFormModal from "./TaskFormModal";
 import ConfirmModal from "./ConfirmModal";
 import { ITaskCardProps } from "@/types";
 import { useDeleteTask, useUpdateTask } from "../hooks/useTasks";
@@ -50,7 +50,7 @@ const TaskCard: React.FC<ITaskCardProps> = ({ task }) => {
       </div>
 
       {/* Modal for edit */}
-      <EditModal
+      <TaskFormModal
         isOpen={isEditing}
         setIsOpen={setIsEditing}
         handleSave={handleSave}
