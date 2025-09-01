@@ -1,11 +1,6 @@
 "use client";
-import { useQueries, UseQueryResult } from "@tanstack/react-query";
-import {
-  fetchBacklogTasks,
-  fetchDoneTasks,
-  fetchInProgressTasks,
-  fetchReviewTasks,
-} from "./api/toDoApi";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { KanbanColumn, SearchBar } from "./components";
 import Loading from "@/components/Loading";
 import Error from "@/components/Error"; 
@@ -64,9 +59,9 @@ const HomePage = () => {
     <div className=" bg-white p-4 d-flex  flex-column gap-3 rounded-3 ">
       {/* Search Bar */}
       <div className="row justify-content-between gap-3 align-items-center border-bottom pb-3">
-        <SearchBar searchTerm="" setSearchTerm={() => {}} />
-        <div className="col-5 col-md-2 col-lg-1 ">
-          <button type="button" className="btn btn-primary text-nowrap ">
+        <SearchBar searchTerm={keyword} setSearchTerm={setKeyword} />
+        <div className="col-5 col-md-2 col-lg-1">
+          <button type="button" className="btn btn-primary text-nowrap">
             Add Task
           </button>
         </div>

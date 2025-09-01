@@ -1,14 +1,11 @@
 "use client";
 import { Search } from "lucide-react";
 import React from "react";
-
-const SearchBar = ({
-  searchTerm,
-  setSearchTerm,
-}: {
+type searchProps = {
   searchTerm: string;
   setSearchTerm: (value: string) => void;
-}) => {
+};
+const SearchBar = ({ searchTerm, setSearchTerm }: searchProps) => {
   return (
     <div className=" col-12 col-md-7 col-lg-9   ">
       <div className="position-relative w-100">
