@@ -5,8 +5,8 @@ import TaskCard from "./TaskCard";
 const KanbanColumn = ({
   column,
   tasks,
-  onEdit,
-  onDelete,
+  // onEdit,
+  // onDelete,
   searchTerm,
 }: KanbanColumnProps) => {
   return (
@@ -18,8 +18,8 @@ const KanbanColumn = ({
         className="card-body p-4 "
         style={{ maxHeight: "400px", overflowY: "auto" }}
       >
-        {tasks.map((t) => (
-          <TaskCard key={t.id} task={t} onEdit={onEdit} onDelete={onDelete} />
+        {tasks.map((task) => (
+          <TaskCard key={task.id} task={task} />
         ))}
         {tasks.length === 0 && (
           <p className="mb-0 text-center text-muted pt-5 ">
