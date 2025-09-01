@@ -4,6 +4,7 @@ import { useState } from "react";
 import EditModal from "./EditModal";
 import ConfirmModal from "./ConfirmModal";
 import { ITaskCardProps } from "@/types";
+import { useDeleteTask } from "../hooks/useTasks";
 
 const TaskCard: React.FC<ITaskCardProps> = ({ task }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -11,10 +12,14 @@ const TaskCard: React.FC<ITaskCardProps> = ({ task }) => {
   const [editDescription, setEditDescription] = useState(task.description);
   const [isOpen, setIsOpen] = useState(false);
 
+  const deleteTaskMutation = useDeleteTask();
+
   const handleSave = () => {
     setIsEditing(false);
   };
-  const handleDeleteTask = async () => {};
+  const handleDeleteTask = async () => {
+    deleteTaskMutation.mutate(task.id.toString());
+  };
   return (
     <>
       <div className="card mb-3 task-card" style={{ cursor: "move" }}>
