@@ -1,18 +1,19 @@
 "use client";
-import Modal from "@/components/modals/Modal";
-import { Edit, Edit3, GripVertical, Trash2 } from "lucide-react";
+import { Edit, GripVertical, Trash2 } from "lucide-react";
 import { useState } from "react";
+import EditModal from "./EditModal";
+import ConfirmModal from "./ConfirmModal";
 
-const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete, onEdit }) => {
+const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(task.title);
   const [editDescription, setEditDescription] = useState(task.description);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleSave = () => {
-    onEdit(task.id, { title: editTitle, description: editDescription });
     setIsEditing(false);
   };
-
+  const handleDeleteTask = async () => {};
   return (
     <>
       <div className="card mb-3 task-card" style={{ cursor: "move" }}>
@@ -26,7 +27,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete, onEdit }) => {
             <button onClick={() => setIsEditing(true)} className="btn ">
               <Edit size={15} />
             </button>
-            <button onClick={() => onDelete(task.id)} className="btn ">
+            <button onClick={() => setIsOpen(true)} className="btn ">
               <Trash2 size={15} />
             </button>
           </div>
@@ -34,51 +35,21 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete, onEdit }) => {
       </div>
 
       {/* Modal for edit */}
-      <Modal
-        show={isEditing}
-        title="Edit Task"
-        onClose={() => setIsEditing(false)}
-        footer={
-          <>
-            <button
-              className="btn btn-secondary"
-              onClick={() => setIsEditing(false)}
-            >
-              Cancel
-            </button>
-            <button className="btn btn-primary" onClick={handleSave}>
-              Save
-            </button>
-          </>
-        }
-      >
-        <div className="mb-3">
-          <label className="form-label">Title</label>
-          <input
-            className="form-control"
-            value={editTitle}
-            onChange={(e) => setEditTitle(e.target.value)}
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Description</label>
-          <textarea
-            className="form-control"
-            rows={3}
-            value={editDescription}
-            onChange={(e) => setEditDescription(e.target.value)}
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Status</label>
-          <select className="form-select">
-            <option value="backlog">Backlog</option>
-            <option value="in-progress">In Progress</option>
-            <option value="review">Review</option>
-            <option value="done">Done</option>
-          </select>
-        </div>
-      </Modal>
+      <EditModal
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
+        editTitle={editTitle}
+        setEditTitle={setEditTitle}
+        editDescription={editDescription}
+        setEditDescription={setEditDescription}
+        handleSave={handleSave}
+      />
+      {/* Modal for confirm delete */}
+      <ConfirmModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        handleConfirmDelete={handleDeleteTask}
+      />
     </>
   );
 };
