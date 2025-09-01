@@ -8,7 +8,7 @@ import {
 } from "./api/toDoApi";
 import { KanbanColumn, SearchBar } from "./components";
 import Loading from "@/components/Loading";
-import Error from "@/components/Error";
+import Error from "@/components/Error"; 
 
 type Q<T> = UseQueryResult<T[], unknown>;
 
@@ -29,7 +29,7 @@ const HomePage = () => {
         queryKey: ["in-progress", 1, 5],
         queryFn: () => fetchInProgressTasks({ page: 1, limit: 5 }),
         staleTime: 10_000,
-      },
+      }, 
       {
         queryKey: ["review", 1, 5],
         queryFn: () => fetchReviewTasks({ page: 1, limit: 5 }),
@@ -90,8 +90,8 @@ const HomePage = () => {
             <KanbanColumn
               column={column}
               tasks={dataByColumn[column.id]}
-              onEdit={() => {}}
-              onDelete={() => {}}
+              // onEdit={() => {}}
+              // onDelete={() => {}}
               searchTerm=""
             />
           </div>
