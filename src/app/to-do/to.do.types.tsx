@@ -6,8 +6,6 @@ interface Task {
 }
 interface TaskCardProps {
   task: Task;
-  onEdit: (id: number, updates: Partial<Task>) => void;
-  onDelete: (id: number) => void;
 }
 interface ColumnProps {
   id: string;
@@ -16,7 +14,5 @@ interface ColumnProps {
 interface KanbanColumnProps {
   column: ColumnProps;
   tasks: Task[];
-  onEdit: (id: number, updates: Partial<Task>) => void;
-  onDelete: (id: number) => void;
   searchTerm: string;
 }
