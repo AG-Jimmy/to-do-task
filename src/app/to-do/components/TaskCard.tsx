@@ -3,8 +3,9 @@ import { Edit, GripVertical, Trash2 } from "lucide-react";
 import { useState } from "react";
 import EditModal from "./EditModal";
 import ConfirmModal from "./ConfirmModal";
+import { ITaskCardProps } from "@/types";
 
-const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
+const TaskCard: React.FC<ITaskCardProps> = ({ task }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(task.title);
   const [editDescription, setEditDescription] = useState(task.description);
