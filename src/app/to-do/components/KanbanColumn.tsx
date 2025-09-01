@@ -4,7 +4,7 @@ import TaskCard from "./TaskCard";
 import Loading from "@/components/Loading";
 import Error from "@/components/Error";
 import Pagination from "@/components/Pagination";
-import { IKanbanColumnProps, ITask } from "@/types";
+import { IKanbanColumnProps } from "@/types";
 import useFilterTasks from "../hooks/useFilterTasks";
 
 const KanbanColumn: React.FC<IKanbanColumnProps> = ({

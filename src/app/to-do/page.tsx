@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { KanbanColumn, SearchBar } from "./components";
-import { getTasks } from "./api/tasks.api";
 import { useTasks } from "./hooks/useTasks";
 
 const columns = [
