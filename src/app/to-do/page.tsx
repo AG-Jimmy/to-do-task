@@ -3,6 +3,8 @@ import { useState } from "react";
 import { KanbanColumn, SearchBar } from "./components";
 import { useAddTask, useTasks } from "./hooks/useTasks";
 import TaskFormModal from "./components/TaskFormModal";
+import Loading from "@/components/Loading";
+import Error from "@/components/Error";
 
 const columns = [
   { id: "backlog", title: "Backlog" },
@@ -34,6 +36,8 @@ export default function HomePage() {
       setOpen(false);
     }
   };
+  if (isLoading) return <Loading />;
+  if (isError) return <Error />;
   return (
     <div className="bg-white p-4 d-flex flex-column gap-3 rounded-3">
       <div className="row justify-content-between gap-3 align-items-center border-bottom pb-3">

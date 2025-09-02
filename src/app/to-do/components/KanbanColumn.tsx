@@ -1,8 +1,7 @@
 "use client";
 import React from "react";
 import TaskCard from "./TaskCard";
-import Loading from "@/components/Loading";
-import Error from "@/components/Error";
+
 import Pagination from "@/components/Pagination";
 import { IKanbanColumnProps } from "@/types";
 import useFilterTasks from "../hooks/useFilterTasks";
@@ -12,8 +11,6 @@ const KanbanColumn: React.FC<IKanbanColumnProps> = ({
   allTasks,
   limit,
   keyword,
-  isLoading,
-  isError,
 }) => {
   const [page, setPage] = React.useState(1);
   const { tasksColumn, totalPages } = useFilterTasks({
@@ -24,8 +21,6 @@ const KanbanColumn: React.FC<IKanbanColumnProps> = ({
     page: page,
   });
 
-  if (isLoading) return <Loading />;
-  if (isError) return <Error />;
   return (
     <div style={{ minHeight: "500px" }}>
       <div className="d-flex align-items-center p-3 gap-2">

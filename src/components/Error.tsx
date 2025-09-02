@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Error = () => {
@@ -14,6 +15,9 @@ const Error = () => {
         src="/error.png"
         alt="error"
       />
+      <Link href="/" className="btn btn-warning">
+        Back to Home
+      </Link>
     </div>
   );
 };
