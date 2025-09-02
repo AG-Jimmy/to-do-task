@@ -50,7 +50,7 @@ export default function HomePage() {
   if (isLoading) return <Loading />;
   if (isError) return <Error />;
   return (
-    <div className="bg-white p-4 d-flex flex-column gap-3 rounded-3  ">
+    <div className="bg-white p-4 d-flex flex-column gap-3 rounded-3 container-xxl ">
       <div className="row justify-content-between gap-3 align-items-center border-bottom pb-3">
         <SearchBar
           searchTerm={keyword}
