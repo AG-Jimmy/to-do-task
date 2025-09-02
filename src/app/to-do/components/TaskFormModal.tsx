@@ -1,6 +1,7 @@
+"use client";
 import Modal from "@/components/modals/Modal";
 import { ITaskFormModal } from "@/types";
-import React, { useState } from "react";
+import React from "react";
 
 const TaskFormModal = ({
   isOpen,

@@ -31,9 +31,9 @@ export interface ITaskFormModal {
   title: string;
   description: string;
   status: string;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOpen: (value: boolean) => void;
   handleSave: () => void;
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
-  setDescription: React.Dispatch<React.SetStateAction<string>>;
-  setStatus: React.Dispatch<React.SetStateAction<string>>;
+  setTitle: (value: string) => void;
+  setDescription: (value: string) => void;
+  setStatus: (value: string) => void;
 }

@@ -13,6 +13,7 @@ import {
   setOpen,
   setStatus,
   setTitle,
+  resetForm,
 } from "../../store/todoSlice";
 
 const columns = [
@@ -31,17 +32,19 @@ export default function HomePage() {
   const createTaskMutation = useAddTask();
 
   const handleCreateTask = () => {
-    createTaskMutation.mutate({
-      title,
-      description,
-      column: status,
-    });
-    if (createTaskMutation.isSuccess) {
-      dispatch(setTitle(""));
-      dispatch(setDescription(""));
-      dispatch(setStatus(""));
-      dispatch(setOpen(false));
-    }
+    createTaskMutation.mutate(
+      {
+        title,
+        description,
+        column: status,
+      },
+      {
+        onSuccess: () => {
+          dispatch(resetForm());
+          dispatch(setOpen(false));
+        },
+      }
+    );
   };
   if (isLoading) return <Loading />;
   if (isError) return <Error />;
@@ -95,42 +98,12 @@ export default function HomePage() {
         description={description}
         status={status}
         setIsOpen={(v) =>
-          dispatch(
-            setOpen(
-              typeof v === "function"
-                ? (v as (prev: boolean) => boolean)(open)
-                : v
-            )
-          )
+          dispatch(setOpen(v))
         }
         handleSave={handleCreateTask}
-        setTitle={(v) =>
-          dispatch(
-            setTitle(
-              typeof v === "function"
-                ? (v as (prev: string) => string)(title)
-                : v
-            )
-          )
-        }
-        setDescription={(v) =>
-          dispatch(
-            setDescription(
-              typeof v === "function"
-                ? (v as (prev: string) => string)(description)
-                : v
-            )
-          )
-        }
-        setStatus={(v) =>
-          dispatch(
-            setStatus(
-              typeof v === "function"
-                ? (v as (prev: string) => string)(status)
-                : v
-            )
-          )
-        }
+        setTitle={(v) => dispatch(setTitle(v))}
+        setDescription={(v) => dispatch(setDescription(v))}
+        setStatus={(v) => dispatch(setStatus(v))}
       />
     </div>
   );
