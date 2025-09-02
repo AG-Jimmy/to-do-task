@@ -31,7 +31,16 @@ const TaskCard: React.FC<ITaskCardProps> = ({ task }) => {
   };
   return (
     <>
-      <div className="card mb-3 task-card" style={{ cursor: "move" }}>
+      <div
+        className="card mb-3 task-card"
+        style={{ cursor: "move" }}
+        draggable
+        onDragStart={(event) => {
+          event.dataTransfer.setData("text/plain", String(task.id));
+          // Optional: customize drag effect
+          event.dataTransfer.effectAllowed = "move";
+        }}
+      >
         <div className="card-body flex-grow-1 p-3">
           <div className="d-flex justify-content-between">
             <h6 className="card-title fw-bold mb-1 small">{task.title} </h6>
