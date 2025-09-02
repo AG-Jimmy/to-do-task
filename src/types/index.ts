@@ -23,7 +23,7 @@ export interface IKanbanColumnProps {
 export interface IGetTasksParams {
   limit?: number;
   page?: number;
-  params?: Record<string, any>;
+  params?: Record<string, unknown>;
   column?: string;
 }
 

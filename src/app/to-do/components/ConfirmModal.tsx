@@ -1,7 +1,13 @@
 import Modal from "@/components/modals/Modal";
 import React from "react";
 
-const ConfirmModal = ({ isOpen, setIsOpen, handleConfirmDelete }: any) => {
+type ConfirmModalProps = {
+  isOpen: boolean;
+  setIsOpen: (value: boolean) => void;
+  handleConfirmDelete: () => void;
+};
+
+const ConfirmModal: React.FC<ConfirmModalProps> = ({ isOpen, setIsOpen, handleConfirmDelete }) => {
   return (
     <Modal
       show={isOpen}

@@ -19,7 +19,7 @@ const TaskCard: React.FC<ITaskCardProps> = ({ task }) => {
   const updateTaskMutation = useUpdateTask();
 
   const handleSave = () => {
-    if (!TASK_COLUMNS.includes(status as any)) {
+    if (!TASK_COLUMNS.includes(status as unknown as typeof TASK_COLUMNS[number])) {
       return; // guard invalid status
     }
     updateTaskMutation.mutate({

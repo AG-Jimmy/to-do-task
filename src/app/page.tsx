@@ -3,16 +3,9 @@ import React from "react";
 import { ArrowRight, CheckSquare, Github } from "lucide-react";
 import Link from "next/link";
 
-interface HomePageProps {}
-
-const HomePage: React.FC<HomePageProps> = () => {
+const HomePage = () => {
   return (
     <>
-      {/* Bootstrap CSS */}
-      <link
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
-        rel="stylesheet"
-      />
       <center className="min-vh-100 bg-primary ">
         <div className=" d-flex flex-column justify-content-center  min-vh-100 container  gap-5 min-vh-50">
           <div className="col-lg-6  ">

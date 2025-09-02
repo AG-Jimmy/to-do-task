@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { KanbanColumn, SearchBar } from "./components";
 import { useAddTask, useTasks } from "./hooks/useTasks";
 import TaskFormModal from "./components/TaskFormModal";
@@ -33,7 +32,7 @@ export default function HomePage() {
   const createTaskMutation = useAddTask();
 
   const handleCreateTask = () => {
-    if (!TASK_COLUMNS.includes(status as any)) return; 
+    if (!TASK_COLUMNS.includes(status as unknown as typeof TASK_COLUMNS[number])) return;
     createTaskMutation.mutate(
       {
         title,
@@ -99,9 +98,7 @@ export default function HomePage() {
         title={title}
         description={description}
         status={status}
-        setIsOpen={(v) =>
-          dispatch(setOpen(v))
-        }
+        setIsOpen={(v) => dispatch(setOpen(v))}
         handleSave={handleCreateTask}
         setTitle={(v) => dispatch(setTitle(v))}
         setDescription={(v) => dispatch(setDescription(v))}

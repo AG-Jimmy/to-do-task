@@ -30,8 +30,12 @@ const TaskFormModal = ({
           <button
             className="btn btn-primary"
             onClick={handleSave}
-            disabled={!TASK_COLUMNS.includes(status as any)}
-            title={!TASK_COLUMNS.includes(status as any) ? "Please select a valid status" : undefined}
+            disabled={!TASK_COLUMNS.includes(status as unknown as typeof TASK_COLUMNS[number])}
+            title={
+              !TASK_COLUMNS.includes(status as unknown as typeof TASK_COLUMNS[number])
+                ? "Please select a valid status"
+                : undefined
+            }
           >
             Save
           </button>
@@ -68,7 +72,7 @@ const TaskFormModal = ({
           <option value="review">Review</option>
           <option value="done">Done</option>
         </select>
-        {!TASK_COLUMNS.includes(status as any) && (
+        {!TASK_COLUMNS.includes(status as unknown as typeof TASK_COLUMNS[number]) && (
           <small className="text-danger">Please choose a valid status</small>
         )}
       </div>
