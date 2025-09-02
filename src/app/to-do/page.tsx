@@ -33,7 +33,7 @@ export default function HomePage() {
   const createTaskMutation = useAddTask();
 
   const handleCreateTask = () => {
-    if (!TASK_COLUMNS.includes(status as any)) return; // guard invalid status
+    if (!TASK_COLUMNS.includes(status as any)) return; 
     createTaskMutation.mutate(
       {
         title,
