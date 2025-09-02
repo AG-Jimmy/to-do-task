@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface UIState {
+export interface TodoState {
   keyword: string;
   open: boolean;
   title: string;
@@ -8,7 +8,7 @@ export interface UIState {
   status: string;
 }
 
-const initialState: UIState = {
+const initialState: TodoState = {
   keyword: "",
   open: false,
   title: "",
@@ -17,7 +17,7 @@ const initialState: UIState = {
 };
 
 const todoSlice = createSlice({
-  name: "ui",
+  name: "todo",
   initialState,
   reducers: {
     setKeyword(state, action: PayloadAction<string>) {
@@ -43,9 +43,15 @@ const todoSlice = createSlice({
   },
 });
 
-export const { setKeyword, setOpen, setTitle, setDescription, setStatus, resetForm } = todoSlice.actions;
+export const {
+  setKeyword,
+  setOpen,
+  setTitle,
+  setDescription,
+  setStatus,
+  resetForm,
+} = todoSlice.actions;
 
-export const selectUI = (state: { ui: UIState }) => state.ui;
+export const selectTodo = (state: { todo: TodoState }) => state.todo;
 
 export default todoSlice.reducer;
-

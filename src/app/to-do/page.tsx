@@ -5,6 +5,15 @@ import { useAddTask, useTasks } from "./hooks/useTasks";
 import TaskFormModal from "./components/TaskFormModal";
 import Loading from "@/components/Loading";
 import Error from "@/components/Error";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import {
+  selectTodo,
+  setDescription,
+  setKeyword,
+  setOpen,
+  setStatus,
+  setTitle,
+} from "../../store/todoSlice";
 
 const columns = [
   { id: "backlog", title: "Backlog" },
@@ -14,11 +23,9 @@ const columns = [
 ];
 
 export default function HomePage() {
-  const [keyword, setKeyword] = useState("");
-  const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("");
+  const dispatch = useAppDispatch();
+  const { keyword, open, title, description, status } =
+    useAppSelector(selectTodo);
   const limit = 5;
   const { data: allTasks = [], isLoading, isError } = useTasks();
   const createTaskMutation = useAddTask();
@@ -30,10 +37,10 @@ export default function HomePage() {
       column: status,
     });
     if (createTaskMutation.isSuccess) {
-      setTitle("");
-      setDescription("");
-      setStatus("");
-      setOpen(false);
+      dispatch(setTitle(""));
+      dispatch(setDescription(""));
+      dispatch(setStatus(""));
+      dispatch(setOpen(false));
     }
   };
   if (isLoading) return <Loading />;
@@ -41,10 +48,13 @@ export default function HomePage() {
   return (
     <div className="bg-white p-4 d-flex flex-column gap-3 rounded-3">
       <div className="row justify-content-between gap-3 align-items-center border-bottom pb-3">
-        <SearchBar searchTerm={keyword} setSearchTerm={setKeyword} />
+        <SearchBar
+          searchTerm={keyword}
+          setSearchTerm={(v) => dispatch(setKeyword(v))}
+        />
         <div className="col-5 col-md-2 col-lg-1">
           <button
-            onClick={() => setOpen(true)}
+            onClick={() => dispatch(setOpen(true))}
             type="button"
             className="btn btn-primary text-nowrap"
           >
@@ -84,11 +94,43 @@ export default function HomePage() {
         title={title}
         description={description}
         status={status}
-        setIsOpen={setOpen}
+        setIsOpen={(v) =>
+          dispatch(
+            setOpen(
+              typeof v === "function"
+                ? (v as (prev: boolean) => boolean)(open)
+                : v
+            )
+          )
+        }
         handleSave={handleCreateTask}
-        setTitle={setTitle}
-        setDescription={setDescription}
-        setStatus={setStatus}
+        setTitle={(v) =>
+          dispatch(
+            setTitle(
+              typeof v === "function"
+                ? (v as (prev: string) => string)(title)
+                : v
+            )
+          )
+        }
+        setDescription={(v) =>
+          dispatch(
+            setDescription(
+              typeof v === "function"
+                ? (v as (prev: string) => string)(description)
+                : v
+            )
+          )
+        }
+        setStatus={(v) =>
+          dispatch(
+            setStatus(
+              typeof v === "function"
+                ? (v as (prev: string) => string)(status)
+                : v
+            )
+          )
+        }
       />
     </div>
   );
