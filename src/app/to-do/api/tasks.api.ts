@@ -20,6 +20,6 @@ export const createTask = async (task: Omit<ITask, "id">): Promise<ITask> => {
 };
 
 export const updateTask = async (task: ITask): Promise<ITask> => {
-  const { data } = await api.patch(`/tasks/${task.id}`, task);
+  const { data } = await api.put(`/tasks/${task.id}`, task);
   return data;
 };
