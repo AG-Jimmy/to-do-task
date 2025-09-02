@@ -85,6 +85,15 @@ Open `http://localhost:3000`.
 - Redux for UI state: clearer intent actions (`setOpen`, `setTitle`, `resetForm`) and predictable updates.
 - HTML5 DnD: native, dependency‑free drag behavior suitable for cards/columns.
 
+### Feature‑based Organization
+
+- The to‑do feature lives under `src/app/to-do/` and encapsulates its UI (`components/`), hooks (`hooks/`), and page.
+- This feature‑first structure keeps concerns close together, making it easier to change or add functionality without touching unrelated areas.
+- Benefits:
+  - Easier maintenance and onboarding (everything for a feature is co‑located)
+  - Safer refactors (local blast radius)
+  - Clear boundaries between features and shared primitives
+
 ---
 
 ## Scripts
