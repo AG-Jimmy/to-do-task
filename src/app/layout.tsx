@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ReactQueryProvider>
-          <div className="">{children}</div>
+          <div className="  bg-black ">{children}</div>
         </ReactQueryProvider>
       </body>
     </html>
