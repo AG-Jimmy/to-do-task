@@ -6,6 +6,7 @@ import TaskFormModal from "./components/TaskFormModal";
 import Loading from "@/components/Loading";
 import Error from "@/components/Error";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { TASK_COLUMNS } from "@/types";
 import {
   selectTodo,
   setDescription,
@@ -32,6 +33,7 @@ export default function HomePage() {
   const createTaskMutation = useAddTask();
 
   const handleCreateTask = () => {
+    if (!TASK_COLUMNS.includes(status as any)) return; // guard invalid status
     createTaskMutation.mutate(
       {
         title,
@@ -49,7 +51,7 @@ export default function HomePage() {
   if (isLoading) return <Loading />;
   if (isError) return <Error />;
   return (
-    <div className="bg-white p-4 d-flex flex-column gap-3 rounded-3">
+    <div className="bg-white p-4 d-flex flex-column gap-3 rounded-3  ">
       <div className="row justify-content-between gap-3 align-items-center border-bottom pb-3">
         <SearchBar
           searchTerm={keyword}

@@ -3,7 +3,7 @@ import { Edit, GripVertical, Trash2 } from "lucide-react";
 import { useState } from "react";
 import TaskFormModal from "./TaskFormModal";
 import ConfirmModal from "./ConfirmModal";
-import { ITaskCardProps } from "@/types";
+import { ITaskCardProps, TASK_COLUMNS } from "@/types";
 import { useDeleteTask, useUpdateTask } from "../hooks/useTasks";
 
 const TaskCard: React.FC<ITaskCardProps> = ({ task }) => {
@@ -19,6 +19,9 @@ const TaskCard: React.FC<ITaskCardProps> = ({ task }) => {
   const updateTaskMutation = useUpdateTask();
 
   const handleSave = () => {
+    if (!TASK_COLUMNS.includes(status as any)) {
+      return; // guard invalid status
+    }
     updateTaskMutation.mutate({
       ...task,
       title,

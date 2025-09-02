@@ -10,19 +10,13 @@
       "id": "2",
       "title": "Draft user survey",
       "description": "Prepare questions for the user feedback surey",
-      "column": "in-progress"
+      "column": "review"
     },
     {
       "id": "3",
       "title": "Design forgot password page",
       "description": "Create a mockup for the new forgot password page",
-      "column": "backlog"
-    },
-    {
-      "id": "4",
-      "title": "Implement authentication",
-      "description": "Add OAuth,2 support for user logins",
-      "column": "in-progress"
+      "column": "review"
     },
     {
       "id": "5",
@@ -34,13 +28,13 @@
       "id": "6",
       "title": "Code cleanup",
       "description": "Refactor code to improve readability",
-      "column": "review"
+      "column": "done"
     },
     {
       "id": "7",
       "title": "Write documentation",
       "description": "Create comprehensive user guides",
-      "column": "done"
+      "column": "backlog"
     },
     {
       "id": "8",
@@ -52,7 +46,7 @@
       "id": "9",
       "title": "Fix login bug",
       "description": "Fix the bug that prevents users from logging in",
-      "column": "review"
+      "column": "in-progress"
     }
   ]
 }

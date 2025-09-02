@@ -3,6 +3,7 @@ export interface ITask {
   title: string;
   description: string;
   column: string;
+  order?: number;
 }
 export interface ITaskCardProps {
   task: ITask;
@@ -36,4 +37,13 @@ export interface ITaskFormModal {
   setTitle: (value: string) => void;
   setDescription: (value: string) => void;
   setStatus: (value: string) => void;
+  disableSave?: boolean;
 }
+
+export const TASK_COLUMNS = [
+  "backlog",
+  "in-progress",
+  "review",
+  "done",
+] as const;
+export type TaskColumn = (typeof TASK_COLUMNS)[number];

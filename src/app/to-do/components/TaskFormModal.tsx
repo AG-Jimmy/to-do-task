@@ -1,6 +1,6 @@
 "use client";
 import Modal from "@/components/modals/Modal";
-import { ITaskFormModal } from "@/types";
+import { ITaskFormModal, TASK_COLUMNS } from "@/types";
 import React from "react";
 
 const TaskFormModal = ({
@@ -27,7 +27,12 @@ const TaskFormModal = ({
           >
             Cancel
           </button>
-          <button className="btn btn-primary" onClick={handleSave}>
+          <button
+            className="btn btn-primary"
+            onClick={handleSave}
+            disabled={!TASK_COLUMNS.includes(status as any)}
+            title={!TASK_COLUMNS.includes(status as any) ? "Please select a valid status" : undefined}
+          >
             Save
           </button>
         </>
@@ -63,6 +68,9 @@ const TaskFormModal = ({
           <option value="review">Review</option>
           <option value="done">Done</option>
         </select>
+        {!TASK_COLUMNS.includes(status as any) && (
+          <small className="text-danger">Please choose a valid status</small>
+        )}
       </div>
     </Modal>
   );
