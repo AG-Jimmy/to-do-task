@@ -7,6 +7,7 @@ import { IKanbanColumnProps } from "@/types";
 import useFilterTasks from "../hooks/useFilterTasks";
 import { useUpdateTask } from "../hooks/useTasks";
 import { ITask } from "@/types";
+import { AnimatePresence, motion } from "framer-motion";
 
 const KanbanColumn: React.FC<IKanbanColumnProps> = ({
   column,
@@ -104,13 +105,26 @@ const KanbanColumn: React.FC<IKanbanColumnProps> = ({
             Drop to move
           </span>
         )}
-        {tasksColumn.length ? (
-          tasksColumn.map((task) => <TaskCard key={task.id} task={task} />)
-        ) : (
+        <AnimatePresence initial={false}>
+          {tasksColumn.length ? (
+            tasksColumn.map((task) => (
+              <motion.div
+                key={task.id}
+                layout
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.18, ease: "easeOut" }}
+              >
+                <TaskCard task={task} />
+              </motion.div>
+            ))
+          ) : (
           <p className="mb-0 text-center text-muted pt-5">
             {keyword ? "No matching tasks" : "No tasks in this column"}
           </p>
-        )}
+          )}
+        </AnimatePresence>
 
         <div
           className="d-flex justify-content-center align-items-center  "

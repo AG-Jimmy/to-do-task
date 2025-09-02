@@ -17,7 +17,7 @@ const TaskFormModal = ({
   return (
     <Modal
       show={isOpen}
-      title="Edit Task"
+      title="Task Form"
       onClose={() => setIsOpen(false)}
       footer={
         <>
