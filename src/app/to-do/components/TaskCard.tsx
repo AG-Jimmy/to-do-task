@@ -43,6 +43,7 @@ const TaskCard: React.FC<ITaskCardProps> = ({ task }) => {
         draggable
         onDragStart={(event) => {
           event.dataTransfer.setData("text/plain", String(task.id));
+          event.dataTransfer.setData("application/x-source-column", task.column);
           // Optional: customize drag effect
           event.dataTransfer.effectAllowed = "move";
           setIsDragging(true);

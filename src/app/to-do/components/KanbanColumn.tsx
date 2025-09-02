@@ -25,28 +25,45 @@ const KanbanColumn: React.FC<IKanbanColumnProps> = ({
 
   const updateTaskMutation = useUpdateTask();
   const [isOver, setIsOver] = React.useState(false);
+  const dragCounter = React.useRef(0);
 
   const handleDrop: React.DragEventHandler<HTMLDivElement> = (event) => {
     event.preventDefault();
     const droppedTaskId = event.dataTransfer.getData("text/plain");
+    const sourceColumn = event.dataTransfer.getData("application/x-source-column");
     if (!droppedTaskId) return;
     const task = allTasks.find((t) => String(t.id) === droppedTaskId);
     if (!task) return;
-    if (task.column === column.id) return; // no-op if same column
+    if (sourceColumn === column.id || task.column === column.id) {
+      setIsOver(false);
+      dragCounter.current = 0;
+      return; // no-op if same column
+    }
 
     const updatedTask: ITask = { ...task, column: column.id };
     updateTaskMutation.mutate(updatedTask);
     setIsOver(false);
+    dragCounter.current = 0;
   };
 
   const handleDragOver: React.DragEventHandler<HTMLDivElement> = (event) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
-    setIsOver(true);
+    const sourceColumn = event.dataTransfer.getData("application/x-source-column");
+    setIsOver(sourceColumn !== column.id);
+  };
+
+  const handleDragEnter: React.DragEventHandler<HTMLDivElement> = (event) => {
+    dragCounter.current += 1;
+    const sourceColumn = event.dataTransfer.getData("application/x-source-column");
+    setIsOver(sourceColumn !== column.id);
   };
 
   const handleDragLeave: React.DragEventHandler<HTMLDivElement> = () => {
-    setIsOver(false);
+    dragCounter.current = Math.max(0, dragCounter.current - 1);
+    if (dragCounter.current === 0) {
+      setIsOver(false);
+    }
   };
 
   React.useEffect(() => {
@@ -75,6 +92,7 @@ const KanbanColumn: React.FC<IKanbanColumnProps> = ({
           background: isOver ? "rgba(13,110,253,.03)" : undefined,
         }}
         onDragOver={handleDragOver}
+        onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
