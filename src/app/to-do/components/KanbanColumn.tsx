@@ -24,6 +24,7 @@ const KanbanColumn: React.FC<IKanbanColumnProps> = ({
   });
 
   const updateTaskMutation = useUpdateTask();
+  const [isOver, setIsOver] = React.useState(false);
 
   const handleDrop: React.DragEventHandler<HTMLDivElement> = (event) => {
     event.preventDefault();
@@ -35,26 +36,56 @@ const KanbanColumn: React.FC<IKanbanColumnProps> = ({
 
     const updatedTask: ITask = { ...task, column: column.id };
     updateTaskMutation.mutate(updatedTask);
+    setIsOver(false);
   };
 
   const handleDragOver: React.DragEventHandler<HTMLDivElement> = (event) => {
-    // Necessary to allow drop
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
+    setIsOver(true);
   };
 
+  const handleDragLeave: React.DragEventHandler<HTMLDivElement> = () => {
+    setIsOver(false);
+  };
+
+  React.useEffect(() => {
+    // If current page has no items but there are previous pages, go back one page
+    if (page > 1 && tasksColumn.length === 0) {
+      setPage(page - 1);
+    }
+  }, [tasksColumn.length, page]);
+
   return (
-    <div style={{ minHeight: "500px" }}>
+    <div style={{ minHeight: "100%" }}>
       <div className="d-flex align-items-center p-3 gap-2">
         <h5 className="card-title fw-bold mb-0">{column.title}</h5>
       </div>
 
       <div
         className="card-body p-4 position-relative"
-        style={{ maxHeight: "400px", overflowY: "auto" }}
+        style={{
+          minHeight: "850px"  ,
+          overflowY: "auto",
+          transition: "background-color 120ms ease, border-color 120ms ease",
+          border: isOver
+            ? "2px dashed rgba(13,110,253,.4)"
+            : "2px dashed transparent",
+          borderRadius: 12,
+          background: isOver ? "rgba(13,110,253,.03)" : undefined,
+        }}
         onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
+        {isOver && (
+          <span
+            className="position-absolute top-0 start-50 translate-middle-x badge rounded-pill text-bg-primary"
+            style={{ opacity: 0.9 }}
+          >
+            Drop to move
+          </span>
+        )}
         {tasksColumn.length ? (
           tasksColumn.map((task) => <TaskCard key={task.id} task={task} />)
         ) : (

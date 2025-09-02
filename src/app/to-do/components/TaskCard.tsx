@@ -9,6 +9,7 @@ import { useDeleteTask, useUpdateTask } from "../hooks/useTasks";
 const TaskCard: React.FC<ITaskCardProps> = ({ task }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   const [title, setTitle] = useState(task?.title || "");
   const [description, setDescription] = useState(task?.description || "");
@@ -33,13 +34,20 @@ const TaskCard: React.FC<ITaskCardProps> = ({ task }) => {
     <>
       <div
         className="card mb-3 task-card"
-        style={{ cursor: "move" }}
+        style={{
+          cursor: "move",
+          transition: "transform 120ms ease, box-shadow 120ms ease",
+          transform: isDragging ? "scale(0.98) rotate(3deg) translateY(-2px) translateX(2px)" : "none",
+          boxShadow: isDragging ? "0 0.75rem 1.5rem rgba(0,0,0,.1)" : undefined,
+        }}
         draggable
         onDragStart={(event) => {
           event.dataTransfer.setData("text/plain", String(task.id));
           // Optional: customize drag effect
           event.dataTransfer.effectAllowed = "move";
+          setIsDragging(true);
         }}
+        onDragEnd={() => setIsDragging(false)}
       >
         <div className="card-body flex-grow-1 p-3">
           <div className="d-flex justify-content-between">
